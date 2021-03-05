@@ -52,6 +52,44 @@ _Reduced the problem to 1D for now._
 - [ ] Optional: Sequential Likelihood Test
 - [ ] Optional: Add map-data/tracks as artificial measurements
 
+## Mathematical basis
+
+### 1D Kalman Filter
+
+The Kalman Filter is a two-step [predictor-corrector method](https://en.wikipedia.org/wiki/Predictor%E2%80%93corrector_method).
+
+#### Predict
+
+- (1) predicted state estimate
+- (2) uncertainty of the predicted state estimate
+
+or in equations:
+
+```math
+x_t = x_{t-1} + v_t \cdot \delta t\\
+\sigma_t = \sigma_{t-1} + \delta t^2 \cdot \sigma_t^v + q_t
+```
+
+#### Correct
+
+- Using the Kalman gain
+- Update/correct state estimate
+- Update/correct uncertainty of the state estimate
+
+or in equations:
+
+```math
+k_t = \frac{\sigma_t}{\sigma_t + \sigma_r}\\
+\bar{x}_t = x_{t} + k_t (z_t - x_t)\\
+\bar{\sigma}_t = (1 - k_t) \sigma_t
+```
+
+With the vars being in the order of appearance: predicted state estimate, old state, velocity, timestepsize, variance of pred state estimate, previous variance, variance of velocity estimate and process noise variance.
+
+In 1D the Kalman gain is the uncertainty in state divided by the sum of state estimate uncertainty and measurement uncertainty. Imagining what would happen with small measurement uncertainty? What would happen with big state estimate uncertainty?
+
+__In one sentence:__ The Kalman filter estimates the state of a system using a weighted average of the system's predicted state and the (noisy) observed state (= measurement).
+
 ## Log
 
 ### Signal sources:
@@ -71,3 +109,4 @@ orig: `x(t) = sin(t)`
 ![](./assets/random_walk_2d.png)
 
 orig: `[10, 10]`
+
