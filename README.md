@@ -26,8 +26,16 @@ To realize this, we need a set of features:
 
 ## A rough development plan:
 
+_Reduced the problem to 1D for now._
+
 - [x] Generate sources and add adjustable noise
-- [ ] Visualize them to get a feeling for what we are doing
+    - Created `Target` base class
+        - Comes with 1D location and velocity
+        - Measurement noise is artifically added in `noisy_step`
+- [x] Visualize them to get a feeling for what we are doing
+    - Using jupyter in `playground` for now
+    - Project runs with `poetry run sdf`
+    - NEXT: Add Gaussian above current position and animate
 - [ ] Model evolution model as Gauss-Markov transition density
 - [ ] Implement one sensor which can potentially move (for Dopplereffect, which enables (G)MTI)
 - [ ] Implement measurement equation as Gauss likelihood
@@ -48,14 +56,18 @@ To realize this, we need a set of features:
 
 ### Signal sources:
 
-#### Very noisy static position in 2D:
+### Noisy 1D with constant velocity
 
-![](./assets/random_walk_2d.png)
-
-orig: `[10, 10]`
+![](./assets/noise_1d_const_speed.png)
 
 #### Noisy dancer in 2D:
 
 ![](./assets/noisy_dancer.png)
 
 orig: `x(t) = sin(t)`
+
+#### Very noisy static position in 2D:
+
+![](./assets/random_walk_2d.png)
+
+orig: `[10, 10]`

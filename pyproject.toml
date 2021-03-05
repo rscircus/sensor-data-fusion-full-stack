@@ -18,7 +18,11 @@ mypy = "^0.812"
 pytest = "^6.2.2"
 coverage = "^5.5"
 Sphinx = "^3.5.1"
+rope = "^0.18.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+sdf = "sdf.kalman_1d:main"

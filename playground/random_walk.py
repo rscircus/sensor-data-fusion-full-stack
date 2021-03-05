@@ -2,7 +2,6 @@
 
 print("Generate noise models with a little bit of causality.")
 # %%
-%reset -f
 
 import random
 import numpy as np
@@ -34,13 +33,6 @@ for down, up in zip(down_samples, up_samples):
 plt.plot(positions)
 
 # 2D now:
-# %%
-%reset -f
-# %%
-
-import random
-import numpy as np
-import matplotlib.pyplot as plt
 
 # %%
 
@@ -75,32 +67,59 @@ nswe = zip(up_samples, down_samples, left_samples, right_samples)
 for u, d, l, r in nswe:
     positions.append([positions[-1][X] + u - d, positions[-1][Y] + r - l])
 
-x,y  = zip(*positions)
+x, y = zip(*positions)
 plt.plot(x, y)
 # %%
-%reset -f
-
-import numpy as np
-import matplotlib.pyplot as plt
 
 # And finally a noise sine to have something to work with
 def gen_sine(carrier_freq, duration):
     sin = []
     for t in range(duration):
-        sin.append(np.sin(2*np.pi*t*carrier_freq))
+        sin.append(np.sin(2 * np.pi * t * carrier_freq))
     return sin
 
+
 def gen_gauss_noise(max_amp, snr, duration):
-    return np.random.normal(0, max_amp/snr, duration)
+    return np.random.normal(0, max_amp / snr, duration)
+
 
 def gen_noisy_signal(signal, duration):
     noisy_signal = signal(0.01, duration)
     noisy_signal += gen_gauss_noise(1, 10, duration)
     return noisy_signal
-    
+
+
 uuuu = gen_noisy_signal(gen_sine, 1000)
 plt.plot(uuuu)
 
+# %%
+
+# Now lets use our target
+
+from sdf.kalman_1d import Target
+
+tar = Target(1, 0.5)
+path = []
+
+for i in range(100):
+    path.append(tar.location())
+    tar.step()
+
+plt.xlabel("time")
+plt.ylabel("location")
+plt.plot(path, label="true position")
+
+tar = Target(1, 0.5)
+noisy_path = []
+
+for i in range(100):
+    noisy_path.append(tar.location())
+    tar.noisy_step()
+
+plt.xlabel("time")
+plt.ylabel("location")
+plt.plot(noisy_path, label="measured position")
+plt.legend()
 # %%
 
 # %%
