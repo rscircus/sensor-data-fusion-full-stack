@@ -71,16 +71,17 @@ r = 0.01
 
 
 def initialize():
-    x = 5
-    p = 0.5
-    return x, p
+    state = 5
+    covariance = 0.5
+    return state, covariance
 
 
-def predict(x, p):
-    # Prediction
-    x = x + dt * v  # State Transition Equation (Dynamic Model or Prediction Model)
-    p = p + (dt ** 2 * p_v) + q  # Predicted Covariance equation
-    return x, p
+def predict(state, covariance):
+    state = (
+        state + dt * v
+    )  # State Transition Equation (Dynamic Model or Prediction Model)
+    covariance = covariance + (dt ** 2 * p_v) + q  # Predicted Covariance equation
+    return state, covariance
 
 
 def measure():
@@ -88,24 +89,24 @@ def measure():
     return z
 
 
-def update(x, p, z):
-    k = p / (p + r)  # Kalman Gain
-    x = x + k * (z - x)  # State Update
-    p = (1 - k) * p  # Covariance Update
-    return x, p
+def update(state, covariance, z):
+    k = covariance / (covariance + r)  # Kalman Gain
+    state = state + k * (z - state)  # State Update
+    covariance = (1 - k) * covariance  # Covariance Update
+    return state, covariance
 
 
 def run_filter():
-    x, p = initialize()
+    state, covariance = initialize()
 
     # 5 Kalman Filter steps
     for j in range(1, 5):
-        x, p = predict(x, p)
-        print(f"prediction: {x}, {p}")
+        state, covariance = predict(state, covariance)
+        print(f"prediction: {state}, {covariance}")
 
         z = measure()
-        x, p = update(x, p, z)
-        print(f"correction: {x}, {p}")
+        state, covariance = update(state, covariance, z)
+        print(f"correction: {state}, {covariance}")
 
 
 def main():
