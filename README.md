@@ -6,8 +6,6 @@ This project implements the three plus one main pillars of Sensor Data Fusion, r
 
 That is:
 
-Understand:
-
 - initiation
 - prediction
 - filtering
