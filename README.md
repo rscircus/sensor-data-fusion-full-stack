@@ -4,6 +4,8 @@ This project implements the three plus one main pillars of Sensor Data Fusion, r
 
 ## Main goal
 
+That is:
+
 Understand:
 
 - initiation
@@ -26,7 +28,7 @@ To realize this, we need a set of features:
 
 ## A rough development plan:
 
-- [ ] Generate sources and add adjustable noise
+- [x] Generate sources and add adjustable noise
 - [ ] Visualize them to get a feeling for what we are doing
 - [ ] Model evolution model as Gauss-Markov transition density
 - [ ] Implement one sensor which can potentially move (for Dopplereffect, which enables (G)MTI)
@@ -43,3 +45,19 @@ To realize this, we need a set of features:
 - [ ] Optional: IMM
 - [ ] Optional: Sequential Likelihood Test
 - [ ] Optional: Add map-data/tracks as artificial measurements
+
+## Log
+
+### Signal sources:
+
+#### Very noisy static position in 2D:
+
+![](./assets/random_walk_2d.png)
+
+orig: `[10, 10]`
+
+#### Noisy dancer in 2D:
+
+![](./assets/noisy_dancer.png)
+
+orig: `x(t) = sin(t)`
