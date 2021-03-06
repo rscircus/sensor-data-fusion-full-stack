@@ -1,6 +1,6 @@
 # Sensor Data Fusion - Full Stack
 
-This project implements the three plus one main pillars of Sensor Data Fusion, respectively Bayesian inference.
+This project implements the three plus one main pillars of Sensor Data Fusion making heavy use of Bayesian inference and properties auf Gaussian distributions.
 
 That is:
 
