@@ -59,6 +59,7 @@ def gauss_add(mu1, sigma1, mu2, sigma2):
 
 
 # 1D Kalman Filter - see README.md
+# The one below was the first shot at it.
 # TODO: Move into own class
 
 Z = [5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
