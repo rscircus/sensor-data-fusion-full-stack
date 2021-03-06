@@ -47,7 +47,7 @@ measurements = [
 ]
 zs = [0]  # measurements (locations)
 ps = [0]  # filter outputs (locations) / added a 0 s.t. the ax1.legend() works
-ns = []  # noise/error offset
+ns = [0]  # noise/error offset
 
 N = 30
 dt = 1
@@ -147,3 +147,5 @@ animation.save(basename + ".mp4", writer="ffmpeg")
 
 os.system("ffmpeg -y -i {}.mp4 {}.gif".format(basename, basename))
 os.remove(basename + ".mp4")
+
+# %%
