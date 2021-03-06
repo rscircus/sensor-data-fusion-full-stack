@@ -1,10 +1,12 @@
 # This module covers a 1-D version of SDF
 
-# - [ ] simple target moving forward (with opt. noise)
-# - [ ] 1D Kalman filter
+# - [X] simple target moving forward (with opt. noise)
+# - [X] 1D Kalman filter
 
+import math
 import random
 import numpy as np
+from scipy.stats import norm
 
 
 class Target:
