@@ -80,11 +80,16 @@ measurements = [
     5.75,  # extreme offset
     7.16,
     20.50,
+    21.75,
+    22.05,
+    23.5,
+    24.27,
+    25.0,
 ]
 zs = []  # measurements (locations)
 ps = [0]  # filter outputs (locations) / added a 0 s.t. the ax1.legend() works
 
-N = 20
+N = 25
 
 
 def animate(frame):
