@@ -100,7 +100,7 @@ def animate(frame):
     Z = measurements[frame]
     zs.append(Z)
 
-    # update - Gauss multiplication in Bayesion terms :)
+    # update - Gauss multiplication of new state with likelihood :)
     state = gauss_multiply(state[0], state[1], Z, sensor_error)
     ps.append(state[0])
 
