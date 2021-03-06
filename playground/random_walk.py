@@ -12,7 +12,23 @@ import matplotlib.pyplot as plt
 
 
 def generate_1d_noisy_movement(x_start=0, x_vel=1.0, num_steps=100, pause_ratio=0.5):
-    """Generates a linear noisy movement."""
+    """Generates a linear noisy movement.
+
+    Parameters:
+    -----------
+
+    x_start: int
+        Starting position of movement.
+
+    x_vel: float
+        Velocity of the movement.
+
+    num_steps: int
+        The length of the movement or size of the returned position array.
+
+    pause_ratio: float
+        A value between 0 and 1 to reflect how often nothing happens.
+    """
 
     DOWN = 0
     UP = 1
