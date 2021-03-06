@@ -45,7 +45,7 @@ measurements = [
     29.15,
     30,
 ]
-zs = []  # measurements (locations)
+zs = [0]  # measurements (locations)
 ps = [0]  # filter outputs (locations) / added a 0 s.t. the ax1.legend() works
 ns = []  # noise/error offset
 
@@ -73,7 +73,7 @@ def animate(frame):
     # plot measurement
     ax1.plot(zs, color="orange", marker="o", label="measurement")
     ax1.set_xlim([0, N * 1.2])
-    ax1.set_ylim([0, N * 1.2])
+    ax1.set_ylim([-5, N * 1.2])
 
     # plot filter output (state*likelihood)
     if len(ps) > 1:
@@ -147,4 +147,3 @@ animation.save(basename + ".mp4", writer="ffmpeg")
 
 os.system("ffmpeg -y -i {}.mp4 {}.gif".format(basename, basename))
 os.remove(basename + ".mp4")
-# %%
