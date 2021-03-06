@@ -105,14 +105,16 @@ def plot_gaussian_pdf(
 
 
 # 1D Kalman Filter - see README.md
-# The one below was the first shot at it.
+# The one below was the first shot at it, following the books notation.
 # TODO: Move into own class
 
 Z = [5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
 Z.reverse()
+
 dt = 1.0
 v = 1.0
 p_v = 0.01
+
 q = 0.01
 r = 0.01
 
@@ -138,8 +140,10 @@ def measure():
 
 def update(state, covariance, z):
     k = covariance / (covariance + r)  # Kalman Gain
-    state = state + k * (z - state)  # State Update
-    covariance = (1 - k) * covariance  # Covariance Update
+    state = state + k * (z - state)  # State Update - k decides about adding the offset
+    covariance = (
+        1 - k
+    ) * covariance  # Covariance Update - again k can "decrease" covariance
     return state, covariance
 
 
@@ -161,4 +165,5 @@ def main():
     Run Kalman in 1D
     """
 
+    # simple run with Z
     run_filter()

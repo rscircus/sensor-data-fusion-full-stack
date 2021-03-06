@@ -11,6 +11,7 @@ matplotlib = "^3.3.4"
 jupyter = "^1.0.0"
 numpy = "^1.20.1"
 filterpy = "^1.4.5"
+sympy = "^1.7.1"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"

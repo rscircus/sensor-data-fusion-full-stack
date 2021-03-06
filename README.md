@@ -44,7 +44,7 @@ _Reduced the problem to 1D for now._
     - Using jupyter in `playground` for now
     - Project runs with `poetry run sdf`
     - Add Gaussian above current position and animate (see gif above)
-    - Implement measurement equation as Gauss likelihood (= this is basically the multilpy)
+    - Implement measurement equation as Gauss likelihood (= this is basically the multiply)
 - [ ] Model evolution model as Gauss-Markov transition density (scaffold is done)
 - [ ] Implement one sensor which can potentially move (for Dopplereffect, which enables (G)MTI)
 - [ ] Visualize static situation (replicate Fig 2.1) in 2D

@@ -55,26 +55,26 @@ dt = 1
 def animate(frame):
     global dt, groundtruth, state, zs, ps, N, measurements, ax1, ax2, fig
 
-    # predict we add up cur location with velocity*1sec
+    # predict: we progress state with evolution model
     state = gauss_add(state[0], state[1], velocity * dt, velocity_error)
+
+    # memorize for plotting later
+    groundtruth = groundtruth + velocity * dt
+    prediction_state = state
+
     Z = measurements[frame]
     zs.append(Z)
 
-    # update groundtruth
-    groundtruth = groundtruth + velocity * dt
-
-    prediction_state = state
-
-    # update - Gauss multiplication of new state with likelihood :)
+    # update: We correct the state using the measurement (as likelihood in Bayes manner)
     state = gauss_multiply(state[0], state[1], Z, sensor_error)
     ps.append(state[0])
 
-    # measurement
+    # plot measurement
     ax1.plot(zs, color="orange", marker="o", label="measurement")
     ax1.set_xlim([0, N * 1.2])
     ax1.set_ylim([0, N * 1.2])
 
-    # filter output (state*likelihood)
+    # plot filter output (state*likelihood)
     if len(ps) > 1:
         ax1.plot(ps, "green", label="filter")
 
@@ -82,7 +82,7 @@ def animate(frame):
     if frame == 0:
         ax1.legend()
 
-    # display the current filter output as Gaussian
+    # plot the current filter output (a Gaussian)
     ax2.cla()
     plot_gaussian_pdf(
         state[0], state[1], xlim=[0, N * 1.2], ax=ax2, color="green", label="filtering"
@@ -95,13 +95,17 @@ def animate(frame):
         color="blue",
         label="prediction",
     )
+
+    # debug
     print(groundtruth)
+
+    # plot groundtruth
     ax2.axvline(x=int(groundtruth), color="red", label="groundtruth")
     ax2.set_ylim(0, 1)
     fig.tight_layout()
 
     # make things look nice
-    # ax2 gets cleared all the time, hence we redraw the legend
+    # ax2 gets cleared all the time, hence we redraw the legend and xlabel
     ax2.legend()
     ax2.set(xlabel="location")
 
