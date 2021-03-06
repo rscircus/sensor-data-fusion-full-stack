@@ -8,9 +8,10 @@ from matplotlib.animation import FuncAnimation
 
 
 state = (0, 10000)  # Gaussian N(mu=0, var=insanely big)
+groundtruth = 0
 velocity = 1
 velocity_error = 0.05
-sensor_error = 2.5
+sensor_error = 0.25
 
 measurements = [
     -2.07,  # first is completely off
@@ -38,33 +39,44 @@ measurements = [
     23.5,
     24.27,
     25.0,
+    26.1,
+    26.9,
+    29.3,
+    29.15,
+    30,
 ]
 zs = []  # measurements (locations)
 ps = [0]  # filter outputs (locations) / added a 0 s.t. the ax1.legend() works
 
-N = 25
+N = 30
+dt = 1
 
 
 def animate(frame):
-    global legend, state, zs, ps, N, measurements, ax1, ax2, fig
+    global dt, groundtruth, state, zs, ps, N, measurements, ax1, ax2, fig
 
     # predict we add up cur location with velocity*1sec
-    state = gauss_add(state[0], state[1], velocity, velocity_error)
+    state = gauss_add(state[0], state[1], velocity * dt, velocity_error)
     Z = measurements[frame]
     zs.append(Z)
+
+    # update groundtruth
+    groundtruth = groundtruth + velocity * dt
+
+    prediction_state = state
 
     # update - Gauss multiplication of new state with likelihood :)
     state = gauss_multiply(state[0], state[1], Z, sensor_error)
     ps.append(state[0])
 
     # measurement
-    ax1.plot(zs, "ro", label="measurement")
+    ax1.plot(zs, color="orange", marker="o", label="measurement")
     ax1.set_xlim([0, N * 1.2])
     ax1.set_ylim([0, N * 1.2])
 
     # filter output (state*likelihood)
     if len(ps) > 1:
-        ax1.plot(ps, "b", label="filter")
+        ax1.plot(ps, "green", label="filter")
 
     # make things look nice
     if frame == 0:
@@ -72,7 +84,19 @@ def animate(frame):
 
     # display the current filter output as Gaussian
     ax2.cla()
-    plot_gaussian_pdf(state[0], state[1], xlim=[0, N * 1.2], ax=ax2, label="filter")
+    plot_gaussian_pdf(
+        state[0], state[1], xlim=[0, N * 1.2], ax=ax2, color="green", label="filtering"
+    )
+    plot_gaussian_pdf(
+        prediction_state[0],
+        prediction_state[1],
+        xlim=[0, N * 1.2],
+        ax=ax2,
+        color="blue",
+        label="prediction",
+    )
+    print(groundtruth)
+    ax2.axvline(x=int(groundtruth), color="red", label="groundtruth")
     ax2.set_ylim(0, 1)
     fig.tight_layout()
 
@@ -104,6 +128,4 @@ animation.save(basename + ".mp4", writer="ffmpeg")
 
 os.system("ffmpeg -y -i {}.mp4 {}.gif".format(basename, basename))
 os.remove(basename + ".mp4")
-# %%
-
 # %%
