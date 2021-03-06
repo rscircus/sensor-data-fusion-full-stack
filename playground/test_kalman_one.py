@@ -100,11 +100,11 @@ def animate(frame):
     ax2.axvline(x=int(groundtruth), color="red", label="groundtruth")
     ax2.set_ylim(0, 1)
 
-    noise = groundtruth - Z
+    noise = Z - groundtruth
     ns.append(noise)
 
     print(noise)
-    ax3.plot(ns, color="red", marker="o", label="groundtruth - measurement")
+    ax3.plot(ns, color="red", marker="o", label="measurement - groundtruth")
     ax3.set_xlim([0, N * 1.2])
     ax3.set_ylim(-15, 15)
 
