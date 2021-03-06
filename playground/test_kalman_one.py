@@ -1,57 +1,10 @@
 # %%
 
 import os
-import math
-from sdf.kalman_one import gauss_add, gauss_multiply
-import numpy as np
+from sdf.kalman_one import gauss_add, gauss_multiply, plot_gaussian_pdf
 import matplotlib.pyplot as plt
 import numpy.random as random
 from matplotlib.animation import FuncAnimation
-from scipy.stats import norm
-
-
-def plot_gaussian_pdf(
-    mean=0.0,
-    variance=1.0,
-    std=None,
-    ax=None,
-    xlim=None,
-    ylim=None,
-    label=None,
-    color="green",
-    marker="",
-):
-    """
-    Plots a normal distribution PDF.
-    """
-
-    # sanity
-    if ax is None:
-        ax = plt.gca()
-
-    if variance is not None and std is not None:
-        raise ValueError("Specify only one of variance and std")
-
-    if variance is None and std is None:
-        raise ValueError("Specify variance or std")
-
-    if variance is not None:
-        std = math.sqrt(variance)
-
-    # the actual Gaussian from scipy
-    n = norm(mean, std)
-
-    if xlim is None:
-        xlim = [n.ppf(0.001), n.ppf(0.999)]
-
-    xs = np.arange(xlim[0], xlim[1], (xlim[1] - xlim[0]) / 1000.0)
-    ax.plot(xs, n.pdf(xs), color=color, marker=marker, label=label)
-
-    ax.set_xlim(xlim)
-    if ylim is not None:
-        ax.set_ylim(ylim)
-
-    return ax
 
 
 state = (0, 10000)  # Gaussian N(mu=0, var=insanely big)
@@ -65,7 +18,7 @@ measurements = [
     0.51,
     3.47,
     5.76,
-    0.93,  #  huge offset
+    0.93,  # huge offset
     6.53,
     9.01,
     7.53,
@@ -104,21 +57,29 @@ def animate(frame):
     state = gauss_multiply(state[0], state[1], Z, sensor_error)
     ps.append(state[0])
 
+    # measurement
     ax1.plot(zs, "ro", label="measurement")
     ax1.set_xlim([0, N * 1.2])
     ax1.set_ylim([0, N * 1.2])
 
+    # filter output (state*likelihood)
     if len(ps) > 1:
         ax1.plot(ps, "b", label="filter")
 
+    # make things look nice
+    if frame == 0:
+        ax1.legend()
+
+    # display the current filter output as Gaussian
     ax2.cla()
     plot_gaussian_pdf(state[0], state[1], xlim=[0, N * 1.2], ax=ax2, label="filter")
     ax2.set_ylim(0, 1)
     fig.tight_layout()
 
-    if frame == 0:
-        ax1.legend()
-        ax2.legend()
+    # make things look nice
+    # ax2 gets cleared all the time, hence we redraw the legend
+    ax2.legend()
+    ax2.set(xlabel="location")
 
 
 def init():
@@ -127,7 +88,10 @@ def init():
 
 
 fig = plt.figure()
+
 ax1 = fig.add_subplot(211)
+ax1.set(ylabel="location", xlabel="time")
+
 ax2 = fig.add_subplot(212)
 animation = FuncAnimation(fig, animate, N, interval=750, init_func=init)
 

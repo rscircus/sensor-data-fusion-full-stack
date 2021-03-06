@@ -58,6 +58,50 @@ def gauss_add(mu1, sigma1, mu2, sigma2):
     return [new_mu, new_sigma]
 
 
+def plot_gaussian_pdf(
+    mean=0.0,
+    variance=1.0,
+    std=None,
+    ax=None,
+    xlim=None,
+    ylim=None,
+    label=None,
+    color="green",
+    marker="",
+):
+    """
+    Plots a normal distribution PDF.
+    """
+
+    # sanity
+    if ax is None:
+        ax = plt.gca()
+
+    if variance is not None and std is not None:
+        raise ValueError("Specify only one of variance and std")
+
+    if variance is None and std is None:
+        raise ValueError("Specify variance or std")
+
+    if variance is not None:
+        std = math.sqrt(variance)
+
+    # the actual Gaussian from scipy
+    n = norm(mean, std)
+
+    if xlim is None:
+        xlim = [n.ppf(0.001), n.ppf(0.999)]
+
+    xs = np.arange(xlim[0], xlim[1], (xlim[1] - xlim[0]) / 1000.0)
+    ax.plot(xs, n.pdf(xs), color=color, marker=marker, label=label)
+
+    ax.set_xlim(xlim)
+    if ylim is not None:
+        ax.set_ylim(ylim)
+
+    return ax
+
+
 # 1D Kalman Filter - see README.md
 # The one below was the first shot at it.
 # TODO: Move into own class
