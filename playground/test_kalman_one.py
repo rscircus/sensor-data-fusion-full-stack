@@ -111,7 +111,7 @@ def init():
     pass
 
 
-fig = plt.figure()
+fig = plt.figure(figsize=(25 / 2.54, 15 / 2.54))
 
 ax1 = fig.add_subplot(211)
 ax1.set(ylabel="location", xlabel="time")
