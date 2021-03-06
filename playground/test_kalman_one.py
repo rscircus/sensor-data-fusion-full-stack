@@ -14,7 +14,7 @@ velocity_error = 0.05
 sensor_error = 0.25
 
 measurements = [
-    -2.07,  # first is completely off
+    -2.07,  # first is completely off #
     5.05,
     0.51,
     3.47,
@@ -47,13 +47,14 @@ measurements = [
 ]
 zs = []  # measurements (locations)
 ps = [0]  # filter outputs (locations) / added a 0 s.t. the ax1.legend() works
+ns = []  # noise/error offset
 
 N = 30
 dt = 1
 
 
 def animate(frame):
-    global dt, groundtruth, state, zs, ps, N, measurements, ax1, ax2, fig
+    global dt, groundtruth, state, zs, ps, ns, N, measurements, ax1, ax2, fig
 
     # predict: we progress state with evolution model
     state = gauss_add(state[0], state[1], velocity * dt, velocity_error)
@@ -78,10 +79,6 @@ def animate(frame):
     if len(ps) > 1:
         ax1.plot(ps, "green", label="filter")
 
-    # make things look nice
-    if frame == 0:
-        ax1.legend()
-
     # plot the current filter output (a Gaussian)
     ax2.cla()
     plot_gaussian_pdf(
@@ -102,12 +99,27 @@ def animate(frame):
     # plot groundtruth
     ax2.axvline(x=int(groundtruth), color="red", label="groundtruth")
     ax2.set_ylim(0, 1)
-    fig.tight_layout()
+
+    noise = groundtruth - Z
+    ns.append(noise)
+
+    print(noise)
+    ax3.plot(ns, color="red", marker="o", label="groundtruth - measurement")
+    ax3.set_xlim([0, N * 1.2])
+    ax3.set_ylim(-15, 15)
 
     # make things look nice
+    if frame == 0:
+        ax1.legend()
+        ax1.grid()
+        ax3.legend()
+        ax3.grid()
+
     # ax2 gets cleared all the time, hence we redraw the legend and xlabel
     ax2.legend()
+    ax2.grid()
     ax2.set(xlabel="location")
+    fig.tight_layout()
 
 
 def init():
@@ -115,13 +127,16 @@ def init():
     pass
 
 
-fig = plt.figure(figsize=(25 / 2.54, 15 / 2.54))
+fig = plt.figure(figsize=(25 / 2.54, 20 / 2.54))
 
-ax1 = fig.add_subplot(211)
+ax1 = fig.add_subplot(311)
 ax1.set(ylabel="location", xlabel="time")
 
-ax2 = fig.add_subplot(212)
+ax2 = fig.add_subplot(312)
+
+ax3 = fig.add_subplot(313)
 animation = FuncAnimation(fig, animate, N, interval=750, init_func=init)
+
 
 # %%
 
