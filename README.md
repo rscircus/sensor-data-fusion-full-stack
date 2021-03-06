@@ -31,7 +31,7 @@ _Reduced the problem to 1D for now._
 - [x] Generate sources and add adjustable noise
     - Created `Target` base class
         - Comes with 1D location and velocity
-        - Measurement noise is artifically added in `noisy_step`
+        - Measurement noise is artificially added in `noisy_step`
 - [x] Visualize them to get a feeling for what we are doing
     - Using jupyter in `playground` for now
     - Project runs with `poetry run sdf`
@@ -110,3 +110,15 @@ orig: `x(t) = sin(t)`
 
 orig: `[10, 10]`
 
+## Sources
+
+### *Computational science and engineering* by Gilbert Strang
+
+https://math.mit.edu/~gs/cse/
+
+Especially helpful in explaining the Linear Algebra aspects of the Kalman Filter. Especially p. 207 ff.
+This also opens the door to parallelization.
+
+### Tracking and Sensor Data Fusion by Wolfgang Koch
+
+https://www.springer.com/gp/book/9783642392702
