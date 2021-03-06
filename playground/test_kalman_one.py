@@ -11,7 +11,7 @@ state = (0, 10000)  # Gaussian N(mu=0, var=insanely big)
 groundtruth = 0
 velocity = 1
 velocity_error = 0.05
-sensor_error = 0.25
+sensor_error = 1.5
 
 measurements = [
     -2.07,  # first is completely off #
