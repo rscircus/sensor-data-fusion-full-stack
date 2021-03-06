@@ -2,8 +2,6 @@
 
 This project implements the three plus one main pillars of Sensor Data Fusion, respectively Bayesian inference.
 
-## Main goal
-
 That is:
 
 - initiation
@@ -12,6 +10,8 @@ That is:
 - retrodiction
 
 as described in [Wolfgang Koch's book Tracking and Sensor Data Fusion](https://www.springer.com/gp/book/9783642392702).
+
+* * *
 
 If time allows, these models will also cover
 
