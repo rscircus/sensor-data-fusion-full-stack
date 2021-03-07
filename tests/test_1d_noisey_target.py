@@ -1,4 +1,4 @@
-from sdf import Target
+from sdf.kalman_one import Target
 
 t = Target(1, 0.5)
 print(t)
