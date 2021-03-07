@@ -21,6 +21,8 @@ pytest = "^6.2.2"
 coverage = "^5.5"
 Sphinx = "^3.5.1"
 rope = "^0.18.0"
+jedi = "^0.18.0"
+jedi-language-server = "^0.27.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

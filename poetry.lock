@@ -154,7 +154,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "click"
 version = "7.1.2"
 description = "Composable command line interface toolkit"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -203,6 +203,14 @@ description = "XML bomb protection for Python stdlib modules"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
+name = "docstring-to-markdown"
+version = "0.7"
+description = "On the fly conversion of Python docstrings to markdown"
+category = "main"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "docutils"
@@ -363,6 +371,20 @@ parso = ">=0.8.0,<0.9.0"
 [package.extras]
 qa = ["flake8 (==3.8.3)", "mypy (==0.782)"]
 testing = ["Django (<3.1)", "colorama", "docopt", "pytest (<6.0.0)"]
+
+[[package]]
+name = "jedi-language-server"
+version = "0.27.1"
+description = "A language server for Jedi!"
+category = "main"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[package.dependencies]
+click = ">=7.0"
+docstring-to-markdown = "<1.0.0"
+jedi = "0.18.0"
+pygls = ">=0.9.1,<0.10.0"
 
 [[package]]
 name = "jinja2"
@@ -792,6 +814,19 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
+name = "pygls"
+version = "0.9.1"
+description = "a pythonic generic language server (pronounced like \"pie glass\")."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+dev = ["bandit (==1.6.0)", "flake8 (==3.7.7)", "mypy (==0.761)"]
+docs = ["sphinx (==2.0.1)", "sphinx-rtd-theme (==0.4.3)"]
+test = ["mock (==3.0.5)", "pytest (==4.5.0)", "pytest-asyncio (==0.10.0)"]
+
+[[package]]
 name = "pygments"
 version = "2.8.0"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -951,7 +986,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 name = "rope"
 version = "0.18.0"
 description = "a python refactoring library..."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1233,7 +1268,7 @@ notebook = ">=4.4.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "bbd60813f9e3ead1e55f333da5bb2b4db2f980c50e2660708cb8c6816c73c1f5"
+content-hash = "260fe75baf4be176d7ac07413f36a22e12bcad5ea9746f30ea53696778c0b6a4"
 
 [metadata.files]
 alabaster = [
@@ -1416,6 +1451,10 @@ defusedxml = [
     {file = "defusedxml-0.7.0-py2.py3-none-any.whl", hash = "sha256:a290cad10346ed366c8a0133d868eaf6585ec6afdd0c511286cdb11f5fc3d285"},
     {file = "defusedxml-0.7.0.tar.gz", hash = "sha256:86b15d9e3c639de79f4cb38aeffea3281f62aff78dde7d798e1352c63bfa6ea0"},
 ]
+docstring-to-markdown = [
+    {file = "docstring-to-markdown-0.7.tar.gz", hash = "sha256:374bad3595b970bc558e1422225f313229988424d5b242d85cbda7da30370375"},
+    {file = "docstring_to_markdown-0.7-py3-none-any.whl", hash = "sha256:d1811fb2ad38bf8ac24e8bac6c74503cdb120a6a3b2c62bf9a0ab44a59656901"},
+]
 docutils = [
     {file = "docutils-0.16-py2.py3-none-any.whl", hash = "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af"},
     {file = "docutils-0.16.tar.gz", hash = "sha256:c2de3a60e9e7d07be26b7f2b00ca0309c207e06c100f9cc2a94931fc75a478fc"},
@@ -1462,6 +1501,10 @@ ipywidgets = [
 jedi = [
     {file = "jedi-0.18.0-py2.py3-none-any.whl", hash = "sha256:18456d83f65f400ab0c2d3319e48520420ef43b23a086fdc05dff34132f0fb93"},
     {file = "jedi-0.18.0.tar.gz", hash = "sha256:92550a404bad8afed881a137ec9a461fed49eca661414be45059329614ed0707"},
+]
+jedi-language-server = [
+    {file = "jedi-language-server-0.27.1.tar.gz", hash = "sha256:2a0b596191c7ae2b0b15655c9fe26cb0be0c56e70b6e3ba26bab2a0e47c787d5"},
+    {file = "jedi_language_server-0.27.1-py3-none-any.whl", hash = "sha256:c832f2ee5e35051b2a2acf837aaf519a4da7e598c6cde8330b608b261d92f7cc"},
 ]
 jinja2 = [
     {file = "Jinja2-2.11.3-py2.py3-none-any.whl", hash = "sha256:03e47ad063331dd6a3f04a43eddca8a966a26ba0c5b7207a9a9e4e08f1b29419"},
@@ -1755,6 +1798,10 @@ py = [
 pycparser = [
     {file = "pycparser-2.20-py2.py3-none-any.whl", hash = "sha256:7582ad22678f0fcd81102833f60ef8d0e57288b6b5fb00323d101be910e35705"},
     {file = "pycparser-2.20.tar.gz", hash = "sha256:2d475327684562c3a96cc71adf7dc8c4f0565175cf86b6d7a404ff4c771f15f0"},
+]
+pygls = [
+    {file = "pygls-0.9.1-py3-none-any.whl", hash = "sha256:89b4361e0ba38effdfc735e25ae207c8af2f4d4ce26961e8628b600f19b16ed4"},
+    {file = "pygls-0.9.1.tar.gz", hash = "sha256:c21c942415457315f316c0b6c19d4c743fd2974d457e02a85472154c8f1b6399"},
 ]
 pygments = [
     {file = "Pygments-2.8.0-py3-none-any.whl", hash = "sha256:b21b072d0ccdf29297a82a2363359d99623597b8a265b8081760e4d0f7153c88"},
