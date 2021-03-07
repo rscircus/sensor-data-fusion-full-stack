@@ -93,7 +93,7 @@ _Reduced the problem to 1D for now._
     - Implement measurement equation as Gauss likelihood (= this is basically the multiply)
 - [ ] Model evolution model as Gauss-Markov transition density (scaffold is done)
 - [ ] Implement one sensor which can potentially move (for Dopplereffect, which enables (G)MTI)
-- [ ] Visualize static situation (replicate Fig 2.1) in 2D
+- [x] Visualize static situation (replicate Fig 2.1) in 2D
 - [ ] Add multiple sensors and pull the signals together using eff. measurement error covariance
 - [ ] Move sensors to allow TDoA and FDoA (FDoA needs two! => geometric fusion gain? p.42ff)
 - [ ] Add explicit noise to generate false positives with 1-3 models
