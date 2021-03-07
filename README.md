@@ -97,10 +97,10 @@ _Reduced the problem to 1D for now._
 - [ ] Add multiple sensors and pull the signals together using eff. measurement error covariance
 - [ ] Move sensors to allow TDoA and FDoA (FDoA needs two! => geometric fusion gain? p.42ff)
 - [ ] Add explicit noise to generate false positives with 1-3 models
-- [ ] Implement a Kalman Filter (if time allows an Extended Kalman Filter, because nature is not linear)
+- [x] Implement a Kalman Filter (if time allows an Extended Kalman Filter, because nature is not linear)
 - [ ] Implement 'drop-outs' to motivate retrodiction (not sure how to do this, likelihood can't be zero?!)
 - [ ] Implement Retrodiction to compensate drop-outs
-- [ ] Implement expectation gates to deal with false positives
+- [ ] Implement expectation gates to deal with false positives (innovation/Mahalanobis vector is inside in 2D case already)
 - [ ] Add MHT tracking to see how the chain individual gating -> local combining -> pruning works
 - [ ] Optional: IMM
 - [ ] Optional: Sequential Likelihood Test
