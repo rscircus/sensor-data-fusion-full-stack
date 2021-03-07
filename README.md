@@ -112,6 +112,10 @@ To keep myself motivated and it's always nice to look at pictures. :blush:
 
 ### Signal sources:
 
+### Moving 2D Gaussian
+
+![](./assets/moving_gaussian.gif)
+
 ### 2D Gaussian
 
 ![](./assets/gaussian_2d.png)
