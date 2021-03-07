@@ -110,6 +110,14 @@ _Reduced the problem to 1D for now._
 
 ### Signal sources:
 
+### 2D Gaussian
+
+![](./assets/gaussian_2d.png)
+
+### 1D Kalman filter with Gaussians
+
+See above.
+
 ### Noisy 1D with constant velocity
 
 ![](./assets/noise_1d_const_speed.png)
