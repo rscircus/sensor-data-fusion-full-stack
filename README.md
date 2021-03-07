@@ -108,6 +108,8 @@ _Reduced the problem to 1D for now._
 
 ## Log
 
+To keep myself motivated and it's always nice to look at pictures. :blush:
+
 ### Signal sources:
 
 ### 2D Gaussian
