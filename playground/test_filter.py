@@ -9,7 +9,6 @@ from filterpy.kalman import KalmanFilter
 from filterpy.common import Q_discrete_white_noise
 
 import numpy as np
-from 
 
 N = 100
 
@@ -27,7 +26,6 @@ f.F = np.array([[1.0, 1.0], [0.0, 1.0]])  # state transition matrix
 f.H = np.array([[1.0, 0.0]])  # measurement function
 
 # Generate some measurement
-
 
 
 # Uncertainties:
