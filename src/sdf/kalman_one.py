@@ -1,3 +1,4 @@
+# %%
 # This module covers a 1-D version of SDF
 
 # - [X] simple target moving forward (with opt. noise)
@@ -37,13 +38,6 @@ class Target:
 
 # Preparing Gaussians
 # TODO: Move into own class
-
-
-def gaussian_1d(x, mu, sigma):
-    """Returns gaussian value at x with given params."""
-    norm = 1.0 / np.sqrt(2 * np.pi * sigma ** 2)
-    exp = np.exp(-0.5 * (x - mu) ** 2 / (sigma ** 2))
-    return norm * exp
 
 
 def gauss_multiply(mu1, sigma1, mu2, sigma2):
@@ -106,58 +100,56 @@ def plot_gaussian_pdf(
 
 # 1D Kalman Filter - see README.md
 # The one below was the first shot at it, following the books notation.
-# TODO: Move into own class
-
-Z = [5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
-Z.reverse()
-
-dt = 1.0
-v = 1.0
-p_v = 0.01
-
-q = 0.01
-r = 0.01
 
 
-def initialize():
-    state = 5
-    covariance = 0.5
-    return state, covariance
+class SimpleKalman:
+    def __init__(self, state, covariance, measurements, dt, v, p_v, q, r):
+        self.state = state
+        self.covariance = covariance
+        self.Z = measurements
+        self.dt = dt
+        self.v = v
+        self.p_v = p_v
+        self.q = q
+        self.r = r
 
+    def predict(self):
+        dt = self.dt
+        v = self.v
+        p_v = self.p_v
+        q = self.q
 
-def predict(state, covariance):
-    state = (
-        state + dt * v
-    )  # State Transition Equation (Dynamic Model or Prediction Model)
-    covariance = covariance + (dt ** 2 * p_v) + q  # Predicted Covariance equation
-    return state, covariance
+        self.state = (
+            self.state + dt * v
+        )  # State Transition Equation (Dynamic Model or Prediction Model)
+        self.covariance = (
+            self.covariance + (dt ** 2 * p_v) + q
+        )  # Predicted Covariance equation
 
+    def measure(self):
+        self.z = self.Z.pop()
 
-def measure():
-    z = Z.pop()
-    return z
+    def update(self):
+        r = self.r
 
+        k = self.covariance / (self.covariance + r)  # Kalman Gain
+        self.state = self.state + k * (
+            self.z - self.state
+        )  # State Update - k decides about adding the offset
+        self.covariance = (
+            1 - k
+        ) * self.covariance  # Covariance Update - again k can "decrease" covariance
 
-def update(state, covariance, z):
-    k = covariance / (covariance + r)  # Kalman Gain
-    state = state + k * (z - state)  # State Update - k decides about adding the offset
-    covariance = (
-        1 - k
-    ) * covariance  # Covariance Update - again k can "decrease" covariance
-    return state, covariance
+    def run_filter(self):
 
+        # Kalman Filter steps
+        for j in range(1, 5):
+            self.predict()
+            print(f"prediction: {self.state}, {self.covariance}")
 
-def run_filter():
-    state, covariance = initialize()
-
-    # 5 Kalman Filter steps
-    for j in range(1, 5):
-        state, covariance = predict(state, covariance)
-        print(f"prediction: {state}, {covariance}")
-
-        z = measure()
-        state, covariance = update(state, covariance, z)
-        print(f"correction: {state}, {covariance}")
+            z = self.measure()
+            self.update()
+            print(f"correction: {self.state}, {self.covariance}")
 
 
 def main():
@@ -165,5 +157,20 @@ def main():
     Run Kalman in 1D
     """
 
+    init_state = 5
+    init_var = 0.5
+    Z = [5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+    Z.reverse()
+
+    dt = 1.0
+    v = 1.0
+    p_v = 0.01
+
+    q = 0.01
+    r = 0.01
+
+    sf = SimpleKalman(init_state, init_var, Z, dt, v, p_v, q, r)
+
     # simple run with Z
-    run_filter()
+    print("Running filter")
+    sf.run_filter()
