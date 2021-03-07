@@ -91,7 +91,7 @@ _Reduced the problem to 1D for now._
     - Project runs with `poetry run sdf`
     - Add Gaussian above current position and animate (see gif above)
     - Implement measurement equation as Gauss likelihood (= this is basically the multiply)
-- [ ] Model evolution model as Gauss-Markov transition density (scaffold is done)
+- [x] Model evolution model as Gauss-Markov transition density
 - [ ] Implement one sensor which can potentially move (for Dopplereffect, which enables (G)MTI)
 - [x] Visualize static situation (replicate Fig 2.1) in 2D
 - [ ] Add multiple sensors and pull the signals together using eff. measurement error covariance
