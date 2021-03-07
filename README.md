@@ -122,7 +122,9 @@ To keep myself motivated and it's always nice to look at pictures. :blush:
 
 ### 1D Kalman filter with Gaussians
 
-See above.
+<p align="center">
+<img src="assets/animation.gif">
+</p>
 
 ### Noisy 1D with constant velocity
 
