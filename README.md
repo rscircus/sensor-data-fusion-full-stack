@@ -118,7 +118,7 @@ This basically implements p.60-p.62 of the book. The state covariance contains t
 
 ![](./assets/kalman_2d.gif)
 
-PS: Numpy is bitch sometimes.
+PS: Numpy is bitch sometimes. However, I was able to reduce the prediction and update steps to few very readable lines, which made me happy. :blush:
 
 ### Moving 2D Gaussian
 
