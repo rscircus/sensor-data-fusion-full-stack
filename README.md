@@ -112,6 +112,14 @@ To keep myself motivated and it's always nice to look at pictures. :blush:
 
 ### Signal sources:
 
+### Generalize Kalman Filter to matrix formalism
+
+This basically implements p.60-p.62 of the book. The state covariance contains the correlated variance of location and velocity now. Else it is equal to the 1D except a way smoother measurement set to not strain the eye.
+
+![](./assets/kalman_2d.gif)
+
+PS: Numpy is bitch sometimes.
+
 ### Moving 2D Gaussian
 
 ![](./assets/moving_gaussian.gif)
