@@ -10,7 +10,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
 from sdf.kalman_two import multivariate_gaussian
 from matplotlib.animation import FuncAnimation
 
@@ -34,11 +34,6 @@ state[:, :, 1] = Y
 # And now the Kalman Filter Part
 #
 
-# %% -- animation setup
-
-fig = plt.figure(figsize=(25 / 2.54, 20 / 2.54))
-ax = fig.gca(projection="3d")
-
 x = np.array([[0.0], [1.0]])  # state - location and velocity
 # P = np.diag( [1.0, 0.05] )
 # covariance matrix - location and velocity again / for simplicty only diag
@@ -60,7 +55,6 @@ H = np.array(
     [[1.0, 0.0], [0.0, 0.0]]
 )  # measurement function - measures location, ignores velocity for now
 R = np.array([[2.5, 0], [0.0, 2.5]])  # measurement error covariance matrix
-
 
 x_measurements = [
     0.07,  # first is completely off #
@@ -98,6 +92,9 @@ y_measurements = 30 * [1.0]
 x_measurements.reverse()
 y_measurements.reverse()
 
+fig = plt.figure(figsize=(25 / 2.54, 20 / 2.54))
+ax = fig.gca(projection="3d")
+
 
 def animate(frame):
     global x, P, F, D, R, H, ax
@@ -110,6 +107,7 @@ def animate(frame):
     Y = state[:, :, 1]
 
     z = np.array([[x_measurements.pop()], [y_measurements.pop()]])
+    Z = multivariate_gaussian(state, x.reshape(1, -1), P.round(2))
 
     # Prediction by evolution model
     x = F @ x
@@ -146,7 +144,7 @@ def animate(frame):
     # print(f"P_corr: {P.round(2)}")
     # print(f"covar: {covar}")
 
-    ## Plot related - prediction
+    ## Plot related - filtering
     # Numpy has a horrible transpose for 1d-vectors...
     mu = x.reshape(1, -1)
 
@@ -164,15 +162,15 @@ def animate(frame):
         cstride=3,
         linewidth=1,
         antialiased=True,
-        cmap=cm.viridis,
+        cmap=cm.inferno,
     )
-    cset = ax.contourf(
+    ax.contourf(
         X,
         Y,
         Z,
         zdir="z",
         offset=-0.2,
-        cmap=cm.viridis,
+        cmap=cm.inferno,
     )
 
     # make things look good
@@ -200,5 +198,3 @@ animation.save(basename + ".mp4", writer="ffmpeg")
 
 os.system("ffmpeg -y -i {}.mp4 {}.gif".format(basename, basename))
 os.remove(basename + ".mp4")
-
-# %%

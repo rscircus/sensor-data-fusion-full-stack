@@ -116,22 +116,28 @@ To keep myself motivated and it's always nice to look at pictures. :blush:
 
 This basically implements p.60-p.62 of the book. The state covariance contains the correlated variance of location and velocity now. Else it is equal to the 1D except a way smoother measurement set to not strain the eye.
 
-![](./assets/kalman_2d.gif)
+<p align="center">
+    <img src="assets/kalman_2d.gif">
+</p>
 
 PS: Numpy is bitch sometimes. However, I was able to reduce the prediction and update steps to few very readable lines, which made me happy. :blush:
 
 ### Moving 2D Gaussian
 
-![](./assets/moving_gaussian.gif)
+<p align="center">
+    <img src="assets/moving_gaussian.gif">
+</p>
 
 ### 2D Gaussian
 
-![](./assets/gaussian_2d.png)
+<p align="center">
+    <img src="assets/gaussian_2d.png">
+</p>
 
 ### 1D Kalman filter with Gaussians
 
 <p align="center">
-<img src="assets/animation.gif">
+    <img src="assets/animation.gif">
 </p>
 
 ### Noisy 1D with constant velocity
