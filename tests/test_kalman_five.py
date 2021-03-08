@@ -202,5 +202,3 @@ os.system("ffmpeg -y -i {}.mp4 {}.gif".format(basename, basename))
 os.remove(basename + ".mp4")
 
 # %%
-
-# %%
