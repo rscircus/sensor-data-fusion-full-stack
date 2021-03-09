@@ -112,6 +112,22 @@ To keep myself motivated and it's always nice to look at pictures. :blush:
 
 ### Signal sources:
 
+### Including a missing measurement
+
+Compensation happens with having a zero innovation vector and very high covariance. Which flattens and broadens the Gaussians. However, the Filter corrects itself rather quickly.
+
+<p align="center">
+    <img src="assets/kalman_2d_negative_sensor_output.gif">
+</p>
+
+Other models are possible, though.
+
+The general approach follows
+
+```math
+l(Z^{k}, m_k | \mathbf{x_k}) \propto (1 - P_D)\rho_F + P_D \sum_{j=1}^{m_k} \mathcal{N}(z_k^j, \mathbf{H}\mathbf{x}, \mathbf{R})
+```
+
 ### Generalize Kalman Filter to matrix formalism
 
 This basically implements p.60-p.62 of the book. The state covariance contains the correlated variance of location and velocity now. Else it is equal to the 1D except a way smoother measurement set to not strain the eye.
