@@ -78,38 +78,6 @@ In 1D the Kalman gain is the uncertainty in state divided by the sum of state es
 
 __In one sentence:__ The Kalman filter estimates the state of a system using a weighted average of the system's predicted state and the (noisy) observed state (= measurement). This weighted average is represented by the Kalman gain.
 
-## A rough development plan:
-
-_Reduced the problem to 1D for now._
-
-- [x] Generate sources and add adjustable noise
-    - Created `Target` base class
-        - Comes with 1D location and velocity
-        - Measurement noise is artificially added in `noisy_step`
-- [x] Visualize them to get a feeling for what we are doing
-    - Using jupyter in `playground` for now
-    - Project runs with `poetry run sdf`
-    - Add Gaussian above current position and animate (see gif above)
-    - Implement measurement equation as Gauss likelihood (= this is basically the multiply)
-- [x] Model evolution model as Gauss-Markov transition density
-- [ ] Implement one sensor which can potentially move (for Dopplereffect, which enables (G)MTI)
-- [x] Visualize static situation (replicate Fig 2.1) in 2D
-- [ ] Add multiple sensors and pull the signals together using eff. measurement error covariance
-- [ ] Move sensors to allow TDoA and FDoA (FDoA needs two! => geometric fusion gain? p.42ff)
-- [ ] Add explicit noise to generate false positives with 1-3 models
-- [x] Implement a Kalman Filter (if time allows an Extended Kalman Filter, because nature is not linear)
-- [ ] Implement 'drop-outs' to motivate retrodiction (not sure how to do this, likelihood can't be zero?!)
-- [ ] Implement Retrodiction to compensate drop-outs
-- [ ] Implement expectation gates to deal with false positives (innovation/Mahalanobis vector is inside in 2D case already)
-- [ ] Add MHT tracking to see how the chain individual gating -> local combining -> pruning works
-- [ ] Optional: IMM
-- [ ] Optional: Sequential Likelihood Test
-- [ ] Optional: Add map-data/tracks as artificial measurements
-
-## Log
-
-To keep myself motivated and it's always nice to look at pictures. :blush:
-
 ### Signal sources:
 
 ### Including a missing measurement
@@ -136,7 +104,7 @@ This basically implements p.60-p.62 of the book. The state covariance contains t
     <img src="assets/kalman_2d.gif">
 </p>
 
-PS: Numpy is bitch sometimes. However, I was able to reduce the prediction and update steps to few very readable lines, which made me happy. :blush:
+PS: Numpy is a ----- sometimes. However, I was able to reduce the prediction and update steps to few very readable lines, which made me happy. :blush:
 
 ### Moving 2D Gaussian
 
@@ -184,6 +152,35 @@ This also opens the door to parallelization.
 ### Tracking and Sensor Data Fusion by Wolfgang Koch
 
 https://www.springer.com/gp/book/9783642392702
+
+
+## A rough development plan:
+
+_Reduced the problem to 1D for now._
+
+- [x] Generate sources and add adjustable noise
+    - Created `Target` base class
+        - Comes with 1D location and velocity
+        - Measurement noise is artificially added in `noisy_step`
+- [x] Visualize them to get a feeling for what we are doing
+    - Using jupyter in `playground` for now
+    - Project runs with `poetry run sdf`
+    - Add Gaussian above current position and animate (see gif above)
+    - Implement measurement equation as Gauss likelihood (= this is basically the multiply)
+- [x] Model evolution model as Gauss-Markov transition density
+- [ ] Implement one sensor which can potentially move (for Dopplereffect, which enables (G)MTI)
+- [x] Visualize static situation (replicate Fig 2.1) in 2D
+- [ ] Add multiple sensors and pull the signals together using eff. measurement error covariance
+- [ ] Move sensors to allow TDoA and FDoA (FDoA needs two! => geometric fusion gain? p.42ff)
+- [ ] Add explicit noise to generate false positives with 1-3 models
+- [x] Implement a Kalman Filter (if time allows an Extended Kalman Filter, because nature is not linear)
+- [ ] Implement 'drop-outs' to motivate retrodiction (not sure how to do this, likelihood can't be zero?!)
+- [ ] Implement Retrodiction to compensate drop-outs
+- [ ] Implement expectation gates to deal with false positives (innovation/Mahalanobis vector is inside in 2D case already)
+- [ ] Add MHT tracking to see how the chain individual gating -> local combining -> pruning works
+- [ ] Optional: IMM
+- [ ] Optional: Sequential Likelihood Test
+- [ ] Optional: Add map-data/tracks as artificial measurements
 
 * * *
 
